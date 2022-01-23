@@ -36,8 +36,25 @@ void loop()
       data[i] = Msg;                         
       Msg = Serial1.read();
       if (Msg == MESSAGE_HEAD){
-//        Bodysign_judgment(data[5], data[6], data[7], data[8], data[9]);   //体征数据解码
         RADAR.Situation_judgment(data[5], data[6], data[7], data[8], data[9]);   //雷达数据解码
+        if (Situation_action = 1){
+          Serial.println("radar said nobody");
+        }
+        if (Situation_action = 2){
+          Serial.println("radar said somebody move");
+        }
+        if (Situation_action = 3){
+          Serial.println("radar said somebody stop");
+        }
+        if (Situation_action = 4){
+          Serial.println("radar said no move");
+        }
+        if (Situation_action = 5){
+          Serial.println("radar said somebody close");
+        }
+        if (Situation_action = 6){
+          Serial.println("radar said somebody away");
+        }    
         continue;
       }
       delay(25);

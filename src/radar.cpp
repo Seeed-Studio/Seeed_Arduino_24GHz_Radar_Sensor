@@ -116,25 +116,25 @@ void radar::Situation_judgment(int ad1, int ad2, int ad3, int ad4, int ad5){
   if(ad1 == REPORT_RADAR || ad1 == REPORT_OTHER){
         if(ad2 == ENVIRONMENT || ad2 == HEARTBEAT){
           if(ad3 == NOBODY){
-            Serial.println("radar said nobody");
+            return 1;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_MOVE){
-            Serial.println("radar said somebody move");
+            return 2;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_STOP){
-            Serial.println("radar said somebody stop");
+            return 3;
           }
         }
         else if(ad2 == CLOSE_AWAY){
           if(ad3 == CA_BE && ad4 == CA_BE){
             if(ad5 == CA_BE){
-              Serial.println("radar said no move");
+              return 4;
             }
             else if(ad5 == CA_CLOSE){
-              Serial.println("radar said somebody close");
+              return 5;
             }
             else if(ad5 == CA_AWAY){
-              Serial.println("radar said somebody away");
+              return 6;
             }
           }
         }
@@ -146,32 +146,31 @@ void radar::Fall_judgment(int ad1, int ad2, int ad3, int ad4){
   if(ad1 == FALL_REPORT && ad2 == 0x01){
     if(ad3 == 0x01){
       if(ad4 == 0x00){
-        Serial.println("SUSPECTED FALL");
+        return 1;
       }
       else if(ad4 == 0x01){
-        Serial.println("REAL FALL");
+        return 2;
       }
       else if(ad4 == 0x02){
-        Serial.println("NO FALL");
+        return 3;
       }
     }
     else if(ad3 == 0x02){
       if(ad4 == 0x00){
-        Serial.println("NO WARNING");
+        return 4;
       }
       else if(ad4 == 0x01){
-        Serial.println("FIRST WARNING");
+        return 5;
       }
       else if(ad4 == 0x02){
-        Serial.println("SECOND WARNING");
+        return 6;
       }
       else if(ad4 == 0x03){
-        Serial.println("THIRD WARNING");
+        return 7;
       }
       else if(ad4 == 0x04){
-        Serial.println("FORTH WARNING");
+        return 8;
       }
     }
   }
 }
-

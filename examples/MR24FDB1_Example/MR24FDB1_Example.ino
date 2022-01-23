@@ -4,6 +4,8 @@
 int data[14] = {0};
 int i = 0;
 int Msg;
+int Situation_action;
+int Fall_action;
 
 radar RADAR;
 
@@ -36,9 +38,50 @@ void loop()
       data[i] = Msg;                         
       Msg = Serial1.read();
       if (Msg == MESSAGE_HEAD){
-//        Bodysign_judgment(data[5], data[6], data[7], data[8], data[9]);
-        RADAR.Situation_judgment(data[5], data[6], data[7], data[8], data[9]);
-        RADAR.Fall_judgment(data[4], data[5], data[6], data[7]);
+        Situation_action = RADAR.Situation_judgment(data[5], data[6], data[7], data[8], data[9]);
+        if (Situation_action = 1){
+          Serial.println("radar said nobody");
+        }
+        if (Situation_action = 2){
+          Serial.println("radar said somebody move");
+        }
+        if (Situation_action = 3){
+          Serial.println("radar said somebody stop");
+        }
+        if (Situation_action = 4){
+          Serial.println("radar said no move");
+        }
+        if (Situation_action = 5){
+          Serial.println("radar said somebody close");
+        }
+        if (Situation_action = 6){
+          Serial.println("radar said somebody away");
+        }        
+        Fall_action = RADAR.Fall_judgment(data[4], data[5], data[6], data[7]);
+        if (Fall_action = 1){
+          Serial.println("SUSPECTED FALL");
+        }
+        if (Fall_action = 2){
+          Serial.println("REAL FALL");
+        }
+        if (Fall_action = 3){
+          Serial.println("NO FALL");
+        }
+        if (Fall_action = 4){
+          Serial.println("NO WARNING");
+        }
+        if (Fall_action = 5){
+          Serial.println("FIRST WARNING");
+        }
+        if (Fall_action = 6){
+          Serial.println("SECOND WARNING");
+        }
+        if (Fall_action = 7){
+          Serial.println("THIRD WARNING");
+        }
+        if (Fall_action = 8){
+          Serial.println("FORTH WARNING");
+        }
         continue;
       }
       delay(25);
