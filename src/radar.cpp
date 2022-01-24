@@ -112,66 +112,69 @@ int radar::Bodysign_val(int ad1, int ad2, int ad3, int ad4, int ad5){
 }
 
 
-void radar::Situation_judgment(int ad1, int ad2, int ad3, int ad4, int ad5){
+int radar::Situation_judgment(int ad1, int ad2, int ad3, int ad4, int ad5){
+  int result = 0;
   if(ad1 == REPORT_RADAR || ad1 == REPORT_OTHER){
         if(ad2 == ENVIRONMENT || ad2 == HEARTBEAT){
           if(ad3 == NOBODY){
-            Serial.println("radar said nobody");
+            result = 1;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_MOVE){
-            Serial.println("radar said somebody move");
+            result = 2;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_STOP){
-            Serial.println("radar said somebody stop");
+            result = 3;
           }
         }
         else if(ad2 == CLOSE_AWAY){
           if(ad3 == CA_BE && ad4 == CA_BE){
             if(ad5 == CA_BE){
-              Serial.println("radar said no move");
+              result = 4;
             }
             else if(ad5 == CA_CLOSE){
-              Serial.println("radar said somebody close");
+              result = 5;
             }
             else if(ad5 == CA_AWAY){
-              Serial.println("radar said somebody away");
+              result = 6;
             }
           }
         }
   }
+  return result;
 }
 
 
-void radar::Fall_judgment(int ad1, int ad2, int ad3, int ad4){
+int radar::Fall_judgment(int ad1, int ad2, int ad3, int ad4){
+  int result = 0;
   if(ad1 == FALL_REPORT && ad2 == 0x01){
     if(ad3 == 0x01){
       if(ad4 == 0x00){
-        Serial.println("SUSPECTED FALL");
+        result = 1;
       }
       else if(ad4 == 0x01){
-        Serial.println("REAL FALL");
+        result = 2;
       }
       else if(ad4 == 0x02){
-        Serial.println("NO FALL");
+        result = 3;
       }
     }
     else if(ad3 == 0x02){
       if(ad4 == 0x00){
-        Serial.println("NO WARNING");
+        result = 4;
       }
       else if(ad4 == 0x01){
-        Serial.println("FIRST WARNING");
+        result = 5;
       }
       else if(ad4 == 0x02){
-        Serial.println("SECOND WARNING");
+        result = 6;
       }
       else if(ad4 == 0x03){
-        Serial.println("THIRD WARNING");
+        result = 7;
       }
       else if(ad4 == 0x04){
-        Serial.println("FORTH WARNING");
+        result = 8;
       }
     }
   }
+  return result;
 }
-
