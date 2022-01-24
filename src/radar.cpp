@@ -112,65 +112,69 @@ int radar::Bodysign_val(int ad1, int ad2, int ad3, int ad4, int ad5){
 }
 
 
-void radar::Situation_judgment(int ad1, int ad2, int ad3, int ad4, int ad5){
+int radar::Situation_judgment(int ad1, int ad2, int ad3, int ad4, int ad5){
+  int result = 0;
   if(ad1 == REPORT_RADAR || ad1 == REPORT_OTHER){
         if(ad2 == ENVIRONMENT || ad2 == HEARTBEAT){
           if(ad3 == NOBODY){
-            return 1;
+            result = 1;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_MOVE){
-            return 2;
+            result = 2;
           }
           else if(ad3 == SOMEBODY_BE && ad4 == SOMEBODY_STOP){
-            return 3;
+            result = 3;
           }
         }
         else if(ad2 == CLOSE_AWAY){
           if(ad3 == CA_BE && ad4 == CA_BE){
             if(ad5 == CA_BE){
-              return 4;
+              result = 4;
             }
             else if(ad5 == CA_CLOSE){
-              return 5;
+              result = 5;
             }
             else if(ad5 == CA_AWAY){
-              return 6;
+              result = 6;
             }
           }
         }
   }
+  return result;
 }
 
 
-void radar::Fall_judgment(int ad1, int ad2, int ad3, int ad4){
+int radar::Fall_judgment(int ad1, int ad2, int ad3, int ad4){
+  int result = 0;
   if(ad1 == FALL_REPORT && ad2 == 0x01){
     if(ad3 == 0x01){
       if(ad4 == 0x00){
-        return 1;
+        result = 1;
       }
       else if(ad4 == 0x01){
-        return 2;
+        result = 2;
       }
       else if(ad4 == 0x02){
-        return 3;
+        result = 3;
       }
     }
     else if(ad3 == 0x02){
       if(ad4 == 0x00){
-        return 4;
+        result = 4;
       }
       else if(ad4 == 0x01){
-        return 5;
+        result = 5;
       }
       else if(ad4 == 0x02){
-        return 6;
+        result = 6;
       }
       else if(ad4 == 0x03){
-        return 7;
+        result = 7;
       }
       else if(ad4 == 0x04){
-        return 8;
+        result = 8;
       }
     }
   }
+  return result;
 }

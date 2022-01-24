@@ -1,5 +1,11 @@
 #include <radar.h>
 
+#ifdef __AVR__
+    #include <SoftwareSerial.h>
+    SoftwareSerial SSerial(2, 3); // RX, TX
+    #define Serial1 SSerial
+#endif
+
 #define MESSAGE_HEAD 0x55
 int data[14] = {0};
 int i = 0;
