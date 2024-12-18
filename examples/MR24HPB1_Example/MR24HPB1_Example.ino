@@ -6,10 +6,15 @@
     #define Serial1 SSerial
 #endif
 
+#ifdef USE_TINYUSB
+#include <Adafruit_TinyUSB.h>
+#endif
+
 #define MESSAGE_HEAD 0x55
 int data[14] = {0};
 int i = 0;
 int Msg;
+int Situation_action;
 
 radar RADAR;
 
